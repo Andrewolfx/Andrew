@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina de  un cubo interactivo programacion avanzada</title>
+<link rel="icon" type="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtU2WqLhm8sZzGbmrw9pEWfdPQBnaaaRsGpA&usqp=CAU">
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: black;
+        background-image: url('https://wallpapercave.com/wp/wp7557568.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    #container {
+        width: 200px;
+        height: 200px;
+        perspective: 1000px;
+    }
+    #cube {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateX(0deg) rotateY(0deg);
+        transition: transform 0.5s;
+    }
+    .face {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background-image: url('https://addons-media.operacdn.com/media/CACHE/images/themes/95/72895/1.0-rev1/images/93ccab91-6074-4c33-8e46-e595084a0d4e/0dfd2182106b1095cc52bd11ba596698.jpg'); /* Cambia 'ruta/a/tu/imagen.jpg' para cambiar por imagenes */
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        color: white;
+}
+
+    .face a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .front  { transform: translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg) translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
+</style>
+</head>
+<body>
+<div id="container">
+    <div id="cube">
+        <div class="face front"><a href="https://www.upemuniversitarios.com.mx">Cara UNO</a></div>
+        <div class="face back"><a href="https://upemex.edu.mx">Cara DOS</a></div>
+        <div class="face left"><a href="https://upemex.edu.mx/unidad-sabatina/">Cara TRES</a></div>
+        <div class="face right"><a href="https://upemex.edu.mx/ingenieria-en-sistemas-computacionales-sabatina/">Cara CUATRO</a></div>
+        <div class="face top"><a href="https://www.youtube.com/watch?v=HH_SMpxV7qQ">Cara CINCO</a></div>
+        <div class="face bottom"><a href="https://www.youtube.com/watch?v=yJcoqOBklK4">Cara SEIS</a></div>
+    </div>
+</div>
+<script>
+    const cube = document.getElementById('cube');
+    let isMouseDown = false;
+    let startX, startY;
+    let currentX = 0;
+    let currentY = 0;
+
+    document.addEventListener('mousedown', (e) => {
+        isMouseDown = true;
+        startX = e.clientX;
+        startY = e.clientY;
+    });
+
+    document.addEventListener('mouseup', () => {
+        isMouseDown = false;
+        currentX = 0;
+        currentY = 0;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isMouseDown) {
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            currentX += deltaX * 0.2;
+            currentY -= deltaY * 0.2;
+            cube.style.transform = `rotateX(${currentY}deg) rotateY(${currentX}deg)`;
+            startX = e.clientX;
+            startY = e.clientY;
+        }
+    });
+
+    document.addEventListener('touchstart', (e) => {
+        isMouseDown = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', () => {
+        isMouseDown = false;
+        currentX = 0;
+        currentY = 0;
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (isMouseDown) {
+            const deltaX = e.touches[0].clientX - startX;
+            const deltaY = e.touches[0].clientY - startY;
+            currentX += deltaX * 0.2;
+            currentY -= deltaY * 0.2;
+            cube.style.transform = `rotateX(${currentY}deg) rotateY(${currentX}deg)`;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }
+    });
+</script>
+</body>
+</html>
